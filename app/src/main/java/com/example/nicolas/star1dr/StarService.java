@@ -19,10 +19,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import database.StarDatabaseHelper;
+
 public class StarService extends IntentService {
 
-    ArrayList<StarJsonFile> arrayJsonFile = new ArrayList<StarJsonFile>();
-
+    private ArrayList<StarJsonFile> arrayJsonFile = new ArrayList<StarJsonFile>();
+    private StarDatabaseHelper database;
     public StarService() {
         super(StarService.class.getName());
     }

@@ -4,14 +4,19 @@ package database;
  * Created by nicolas on 26/11/2017.
  */
 
-public class BusRoutes {
+public class BusRoute {
 
+    private String id;
     private String routeShortName;
     private String routeLongName;
     private String routeDescritpion;
     private String routetype;
     private String routeColor;
     private String routeTextColor;
+
+    public String getId() {return id;}
+
+    public void setId(String id) {this.id = id;}
 
     public String getRouteShortName() {
         return routeShortName;
@@ -33,9 +38,7 @@ public class BusRoutes {
         return routeDescritpion;
     }
 
-    public void setRouteDescritpion(String routeDescritpion) {
-        this.routeDescritpion = routeDescritpion;
-    }
+    public void setRouteDescritpion(String routeDescritpion) { this.routeDescritpion = routeDescritpion; }
 
     public String getRoutetype() {
         return routetype;
