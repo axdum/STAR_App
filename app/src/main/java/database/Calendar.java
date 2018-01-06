@@ -6,6 +6,7 @@ package database;
 
 public class Calendar {
 
+    private int id;
     private int monday;
     private int tuesday;
     private int wednesday;
@@ -15,6 +16,10 @@ public class Calendar {
     private int sunday;
     private int startDate;
     private int endDate;
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public int getMonday() {
         return monday;

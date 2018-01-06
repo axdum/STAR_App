@@ -36,4 +36,34 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <ProgressBar
+        android:id="@+id/horizontal_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="160dp"
+        android:indeterminate="false"
+        android:max="100"
+        android:minHeight="100dp"
+        android:progress="2"
+        android:progressBackgroundTint="@color/colorPrimaryDark" />
+
+    <TextView
+    android:id="@+id/textView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="55dp"
+    android:layout_gravity="center_horizontal"
+    android:text="Status"
+    android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/textViewInfos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_gravity="center_horizontal"
+        android:text=""
+        android:textSize="22sp" />
+
 </android.support.design.widget.CoordinatorLayout>

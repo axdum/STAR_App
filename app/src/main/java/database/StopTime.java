@@ -6,11 +6,17 @@ package database;
 
 public class StopTime {
 
+    private int id;
     private int tripId;
     private String arrivalTime;
     private String departureTime;
-    private int stopId;
+    private String stopId;
     private int stopSequence;
+
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public int getTripId() {
         return tripId;
@@ -36,11 +42,11 @@ public class StopTime {
         this.departureTime = departureTime;
     }
 
-    public int getStopId() {
+    public String getStopId() {
         return stopId;
     }
 
-    public void setStopId(int stopId) {
+    public void setStopId(String stopId) {
         this.stopId = stopId;
     }
 

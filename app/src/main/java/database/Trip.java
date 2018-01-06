@@ -6,12 +6,17 @@ package database;
 
 public class Trip {
 
+    private int id;
     private int routeId;
     private int serviceId;
     private String tripHeadsign;
     private String directionId;
     private String blockId;
     private int wheelchairAccessible;
+
+    public int getId() {return id;}
+
+    public void setId(int id) {this.id = id;}
 
     public int getRouteId() {
         return routeId;

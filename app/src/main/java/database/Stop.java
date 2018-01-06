@@ -6,11 +6,16 @@ package database;
 
 public class Stop {
 
+    private String id;
     private String stopName;
     private String stopDesc;
     private String stopLat;
     private String stopLon;
     private int wheelchairBoarding;
+
+    public String getId() {return id;}
+
+    public void setId(String id) {this.id = id;}
 
     public String getStopName() {
         return stopName;
