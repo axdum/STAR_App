@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mInstanceActivity = this;
         //Start progressing
 
-       // this.deleteDatabase("starData.db");
+   //     this.deleteDatabase("starData.db");
         String selectQuery ="select* from trip";
         Cursor cursor = db.rawQuery(selectQuery,null);
         cursor.moveToFirst();
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             tab[i] = cursor.getInt(i);
             i++;
         }*/
-        String selectQuery2 ="select* from busroute";
+    /*    String selectQuery2 ="select* from busroute";
         Cursor cursor2 = db.rawQuery(selectQuery2,null);
         cursor2.moveToFirst();
         int nb2 = cursor2.getCount();
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor5 = db.rawQuery(selectQuery5,null);
         cursor5.moveToFirst();
         int nb5 = cursor5.getCount();
-        int i5 = 0;
+        int i5 = 0;*/
      //   db.execSQL("delete from busroute ");
      //   DataSource bs = new DataSource(this);
 

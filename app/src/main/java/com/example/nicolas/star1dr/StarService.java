@@ -185,22 +185,23 @@ public class StarService extends IntentService {
              ZipInputStream inputStreamzip = new ZipInputStream(urlConnection.getInputStream());
              ZipEntry entry = inputStreamzip.getNextEntry();
              ArrayList<String[]> arrayLine = new ArrayList<String[]>();
+             MainActivity.getmInstanceActivity().progressBarSet("Insertion route",20);
              while(entry != null){
 
                  switch(entry.getName()){
                      case "calendar.txt" :
                          extractFileLine(inputStreamzip,entry);
-                         MainActivity.getmInstanceActivity().progressBarSet("Insertion calendar",40);
+                         MainActivity.getmInstanceActivity().progressBarSet("Insertion trips",60);
                          entry = inputStreamzip.getNextEntry();
                          break;
                      case "routes.txt" :
                          extractFileLine(inputStreamzip,entry);
-                         MainActivity.getmInstanceActivity().progressBarSet("Insertion route",20);
+                         MainActivity.getmInstanceActivity().progressBarSet("Insertion stop",30);
                          entry = inputStreamzip.getNextEntry();
                          break;
                      case "stops.txt" :
                          extractFileLine(inputStreamzip,entry);
-                         MainActivity.getmInstanceActivity().progressBarSet("Insertion stop",30);
+                         MainActivity.getmInstanceActivity().progressBarSet("Insertion calendar",40);
                          entry = inputStreamzip.getNextEntry();
                          break;
                      case "stop_times.txt" :
@@ -210,7 +211,7 @@ public class StarService extends IntentService {
                          break;
                      case "trips.txt" :
                          extractFileLine(inputStreamzip,entry);
-                         MainActivity.getmInstanceActivity().progressBarSet("Insertion trips",60);
+                         MainActivity.getmInstanceActivity().progressBarSet("Insertion stoptimes",90);
                          entry = inputStreamzip.getNextEntry();
                          break;
                      default:

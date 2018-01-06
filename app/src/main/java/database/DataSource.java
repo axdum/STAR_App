@@ -94,7 +94,7 @@ public class DataSource {
     public void insertIntoTrip(String[] value,int id){
         sqlTR+="("+id+","+value[1]+","+value[0]+","+"\""+value[3]+"\""+","+value[5]+","+"\""+value[6]+"\""+","+value[8]+"),";
         i++;
-        if(i==1000){
+        if(i==500){
             execSqlQuerryTrip();
         }
     }
@@ -109,7 +109,7 @@ public class DataSource {
     public void insertIntoStopTimes(String[] value,int id){
         sqlST +="("+id+","+value[0]+","+"\""+value[1]+"\""+","+"\""+value[2]+"\""+","+"\""+value[3]+"\""+","+value[4]+"),";
         i++;
-        if(i==1000){
+        if(i==500){
           execSqlQuerryStoptime();
         }
     }
