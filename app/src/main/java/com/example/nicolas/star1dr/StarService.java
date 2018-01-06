@@ -206,7 +206,6 @@ public class StarService extends IntentService {
                          break;
                      case "stop_times.txt" :
                          extractFileLine(inputStreamzip,entry);
-                         MainActivity.getmInstanceActivity().progressBarSet("Insertion stoptimes",90);
                          entry = inputStreamzip.getNextEntry();
                          break;
                      case "trips.txt" :
