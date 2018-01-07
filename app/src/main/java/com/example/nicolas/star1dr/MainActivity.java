@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mInstanceActivity = this;
         //Start progressing
 
-      //  this.deleteDatabase("starData.db");
+     //   this.deleteDatabase("starData.db");
         String selectQuery ="select* from trip";
         Cursor cursor = db.rawQuery(selectQuery,null);
         cursor.moveToFirst();

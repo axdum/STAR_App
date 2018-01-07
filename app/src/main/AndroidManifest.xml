@@ -19,10 +19,15 @@
             <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <service
             android:name=".StarService"
             android:exported="false"/>
+        <provider
+         android:name=".StarProvider"
+         android:authorities="com.example.nicolas.star1dr.StarProvider"
+         android:enabled="true"
+         android:exported="true">
+         </provider>
     </application>
 
 </manifest>

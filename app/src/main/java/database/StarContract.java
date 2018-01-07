@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 
 public interface StarContract {
 
-    String AUTHORITY = "fr.istic.starproviderDR";
+    String AUTHORITY = "com.example.nicolas.star1dr.StarProvider";
 
     Uri AUTHORITY_URI = Uri.parse("content://" + AUTHORITY);
 
@@ -13,9 +13,9 @@ public interface StarContract {
         String CONTENT_PATH = "busroute";
         Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_PATH);
         String CONTENT_TYPE =
-                "vnd.android.cursor.dir/vnd.fr.istic.starproviderDR.busroute";
+                "vnd.android.cursor.dir/vnd.com.example.nicolas.star1dr.StarProvider.busroute";
         String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/vnd.fr.istic.starproviderDR.busroute";
+                "vnd.android.cursor.item/vnd.com.example.nicolas.star1dr.StarProvider.busroute";
         interface BusRouteColumns extends BaseColumns {
             String SHORT_NAME = "route_short_name";
             String LONG_NAME = "route_long_name";
@@ -30,9 +30,9 @@ public interface StarContract {
         String CONTENT_PATH = "trip";
         Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_PATH);
         String CONTENT_TYPE =
-                "vnd.android.cursor.dir/vnd.fr.istic.starproviderDR.trip";
+                "vnd.android.cursor.dir/vnd.com.example.nicolas.star1dr.StarProvider.trip";
         String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/vnd.fr.istic.starproviderDR.trip";
+                "vnd.android.cursor.item/vnd.com.example.nicolas.star1dr.StarProvider.trip";
         interface TripColumns extends BaseColumns {
             String ROUTE_ID = "route_id";
             String SERVICE_ID = "service_id";
@@ -47,9 +47,9 @@ public interface StarContract {
         String CONTENT_PATH = "stop";
         Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_PATH);
         String CONTENT_TYPE =
-                "vnd.android.cursor.dir/vnd.fr.istic.starproviderDR.stop";
+                "vnd.android.cursor.dir/vnd.com.example.nicolas.star1dr.StarProvider.stop";
         String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/vnd.fr.istic.starproviderDR.stop";
+                "vnd.android.cursor.item/vnd.com.example.nicolas.star1dr.StarProvider.stop";
         interface StopColumns extends BaseColumns {
             String NAME = "stop_name";
             String DESCRIPTION = "stop_desc";
@@ -64,9 +64,9 @@ public interface StarContract {
         Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_PATH);
         // select stop_time.*, trip.*, calendar.*
         String CONTENT_TYPE =
-                "vnd.android.cursor.dir/vnd.fr.istic.starproviderDR.stoptime";
+                "vnd.android.cursor.dir/vnd.com.example.nicolas.star1dr.StarProvider.stoptime";
         String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/vnd.fr.istic.starproviderDR.stoptime";
+                "vnd.android.cursor.item/vnd.com.example.nicolas.star1dr.StarProvider.stoptime";
         interface StopTimeColumns extends BaseColumns {
             String TRIP_ID = "trip_id";
             String ARRIVAL_TIME = "arrival_time";
@@ -80,9 +80,9 @@ public interface StarContract {
         String CONTENT_PATH = "calendar";
         Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_PATH);
         String CONTENT_TYPE =
-                "vnd.android.cursor.dir/vnd.fr.istic.starproviderDR.calendar";
+                "vnd.android.cursor.dir/vnd.com.example.nicolas.star1dr.StarProvider.calendar";
         String CONTENT_ITEM_TYPE =
-                "vnd.android.cursor.item/vnd.fr.istic.starproviderDR.calendar";
+                "vnd.android.cursor.item/vnd.com.example.nicolas.star1dr.StarProvider.calendar";
         interface CalendarColumns extends BaseColumns {
             String MONDAY = "monday";
             String TUESDAY = "tuesday";
@@ -98,11 +98,11 @@ public interface StarContract {
 
     interface RouteDetails {
         String CONTENT_PATH = "routedetail";
-    Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_PATH);
-    // select stop.stop_name, stop_time.arrival_time
-    String CONTENT_TYPE =
-            "vnd.android.cursor.dir/vnd.fr.istic.starproviderDR.routedetails";
-    String CONTENT_ITEM_TYPE =
-            "vnd.android.cursor.item/vnd.fr.istic.starproviderDR.routedetails";
-}
+        Uri CONTENT_URI = Uri.withAppendedPath(AUTHORITY_URI, CONTENT_PATH);
+        // select stop.stop_name, stop_time.arrival_time
+        String CONTENT_TYPE =
+                "vnd.android.cursor.dir/vnd.com.example.nicolas.star1dr.StarProvider.routedetails";
+        String CONTENT_ITEM_TYPE =
+                "vnd.android.cursor.item/vnd.com.example.nicolas.star1dr.StarProvider.routedetails";
+    }
 }
