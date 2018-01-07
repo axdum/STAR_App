@@ -13,9 +13,6 @@ import android.support.annotation.Nullable;
 import database.StarContract;
 import database.StarDatabaseHelper;
 
-/**
- * Created by User_1 on 06/01/2018.
- */
 
 public class StarProvider extends ContentProvider {
     private StarDatabaseHelper mHelper = null;
@@ -59,8 +56,7 @@ public class StarProvider extends ContentProvider {
                 throw new IllegalArgumentException(
                         "Unsupported URI: " + uri);
         }
-        Cursor cursor = builder.query(db,projection,selection,selectionArgs, null, null, sortOrder);
-        return cursor;
+        return builder.query(db,projection,selection,selectionArgs, null, null, sortOrder);
     }
 
     @Nullable
