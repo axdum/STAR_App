@@ -53,6 +53,8 @@ public class StarService extends IntentService {
     private InputStream inputStream = null;
     private HttpURLConnection urlConnection = null;
     private int statusCode;
+    private String urlData;
+    private String version;
 
     public StarService() {
         super(StarService.class.getName());
@@ -60,27 +62,23 @@ public class StarService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-    /*    showToast("Starting IntentService");
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        showToast("Finishing IntentService");*/
-
 
         String starurl = intent.getStringExtra("url");
-            try {
-               // URL object
 
+        try {
+               // URL object
                 statusCode = urlConnection(starurl);
                 //200 represents HTTP OK
+                MainActivity.getmInstanceActivity().progressBarSet("En cours de connexion",2);
                 if (statusCode == 200) {
-                    MainActivity.getmInstanceActivity().progressBarSet("Connection etablie",6);
+                    MainActivity.getmInstanceActivity().progressBarSet("Connexion etablie",6);
                     inputStream = new BufferedInputStream(urlConnection.getInputStream());
+                    //On récupère le fichier JSON
                     String response = convertInputStreamToString(inputStream);
+
                     // On récupère le tableau JSON complet
                     JSONArray jsonArray = new JSONArray(response);
+
                     // Pour tous les objets(lignes) on récupère les infos souhaité
                     for (int i = 0; i < jsonArray.length(); i++) {
                         // On récupère un objet JSON du tableau
@@ -91,16 +89,6 @@ public class StarService extends IntentService {
                         jsonFile.setUrl(obj.getJSONObject("fields").getString("url"));
                         // On ajoute la version à la liste
                         arrayJsonFile.add(jsonFile);
-
-                        //Notification si nouvelle version -> marche pas encore
-                    /*    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        Notification notification = new Notification.Builder(this)
-                                        .setContentTitle("My notification")
-                                        .setContentText("Hello World!")
-                                        .build();
-
-                        notificationManager.notify(0, notification);*/
-
                     }
 
                     database = new StarDatabaseHelper(this);
@@ -111,6 +99,7 @@ public class StarService extends IntentService {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     Date currentDate = new Date();
                     formatter.format(currentDate);
+                    String currentD = currentDate.toString().substring(0,10);
 
                     //Si > 0 alors bdd contient des infos sinon bdd vide
                     if(cursor.getCount() == 0){
@@ -119,21 +108,42 @@ public class StarService extends IntentService {
                         jsonFile = arrayJsonFile.get(0);
                         String finValidite = jsonFile.getFinvalidite().toString();
                         Date dateFin = formatter.parse(finValidite);
-                        //on regarde si la date de fin de validité de la version n'est pas inférieur à la date courante
-                        if(currentDate.compareTo(dateFin)<0){
-                            String urlData = jsonFile.getUrl().toString();
+                        String dateF = dateFin.toString().substring(0,10);
+                        //on regarde si la date de fin de validité de la version n'est pas inférieur ou egale à la date courante
+                        if(currentD.compareTo(dateF)<0 || currentD.compareTo(dateF) == 0){
+                            //On récupère l'url de teléchargement
+                            urlData = jsonFile.getUrl().toString();
                             statusCode = urlConnection(urlData);
                             if(statusCode == 200){
+                                //méthode d'extraction des données
                                  extractZip();
+                                version = "1";
                           }
+                            MainActivity.getmInstanceActivity().progressBarSet("Fichier inséré",100);
+                        }
+                        //sinon on prend la version suivante
+                        else{
+                            jsonFile = arrayJsonFile.get(1);
+                            urlData = jsonFile.getUrl().toString();
+                            statusCode = urlConnection(urlData);
+                            if(statusCode == 200){
+                                extractZip();
+                                version = "2";
+                            }
                             MainActivity.getmInstanceActivity().progressBarSet("Fichier inséré",100);
                         }
                     }
                     else{
-                        //si nouvelle version on créer la notif pour annoncer la nouvelle version
+                            if(version.equals("1")) {
+                                MainActivity.getmInstanceActivity().createNotification();
+                            }
                     }
-
                 }
+                else{
+                    MainActivity.getmInstanceActivity().progressBarSet("Problème de connexion",2);
+                }
+
+            MainActivity.getmInstanceActivity().finish();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -176,7 +186,6 @@ public class StarService extends IntentService {
         }
 
         return 0;
-
      }
 
     private void extractZip(){
@@ -187,7 +196,7 @@ public class StarService extends IntentService {
              ArrayList<String[]> arrayLine = new ArrayList<String[]>();
              MainActivity.getmInstanceActivity().progressBarSet("Insertion route",20);
              while(entry != null){
-
+                 //Pour chaque fichier on extrait chaque ligne de donnée
                  switch(entry.getName()){
                      case "calendar.txt" :
                          extractFileLine(inputStreamzip,entry);
@@ -234,12 +243,15 @@ public class StarService extends IntentService {
             in.readLine();
             DataSource dataSource = new DataSource(this);
             int id = 0;
+            //On lit chaque ligne du fichier
             while((line = in.readLine()) != null) {
                 StringBuilder responseData = new StringBuilder(line);
                 String[] l = responseData.toString().replace("\"","").split(",");
+                //on insère dans la bdd
                 inseretInBDD(l,entry,dataSource,id);
                 id++;
             }
+            //Pour Stoptimes et Trips si jamais on est sur la fin du traitement et que le paquet n'a pas une taille de 500 on execute la requête
             if(entry.getName().equals("stop_times.txt")) {
                 dataSource.execSqlQuerryStoptime();
             }
@@ -302,21 +314,6 @@ public class StarService extends IntentService {
                     break;
             }
      }
-    public void showToast(final String msg){
-        //gets the main thread
-        Handler handler = new Handler(Looper.getMainLooper());
-        final Intent intent = new Intent(Intent.ACTION_SYNC, null, this, StarService.class);
-        final String url = "https://data.explore.star.fr/explore/dataset/tco-busmetro-horaires-gtfs-versions-td/download/?format=json&timezone=Europe/Berlin";
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                // run this code in the main thread
-                intent.putExtra("url", url);
-                onHandleIntent(intent);
-                Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     }
 

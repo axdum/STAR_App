@@ -67,7 +67,7 @@ public class DataSource {
         values.put(StarContract.Stops.StopColumns.WHEELCHAIR_BOARDING,stop.getWheelchairBoarding());
         database.insert(StarContract.Stops.CONTENT_PATH,null,values);
     }
-
+    //trop long
    /* public void insertStopTimes(StopTime stopTime){
         ContentValues values = new ContentValues();
         values.put(StarContract.StopTimes.StopTimeColumns._ID,stopTime.getId());
@@ -92,8 +92,10 @@ public class DataSource {
     }*/
 
     public void insertIntoTrip(String[] value,int id){
+        //On récupère les valeurs dans le tableau de string puis on les ajoutes dans la requête
         sqlTR+="("+id+","+value[1]+","+value[0]+","+"\""+value[3]+"\""+","+value[5]+","+"\""+value[6]+"\""+","+value[8]+"),";
         i++;
+        // Si la requête contient 500 lignes alors on l'execute
         if(i==500){
             execSqlQuerryTrip();
         }
@@ -102,6 +104,7 @@ public class DataSource {
         if(!sqlTR.equals("INSERT INTO trip VALUES ")) {
             sqlTR = sqlTR.substring(0, sqlTR.length() -1);
             database.execSQL(sqlTR);
+            //On remet la requête à son etat initiale
             sqlTR = "INSERT INTO trip VALUES ";
             i = 0;
         }
